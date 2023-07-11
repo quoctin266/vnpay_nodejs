@@ -109,8 +109,9 @@ router.get("/vnpay_return", function (req, res, next) {
   if (secureHash === signed) {
     //Kiem tra xem du lieu trong db co hop le hay khong va thong bao ket qua
     if (vnp_Params["vnp_ResponseCode"] == "00") {
-      res.redirect("http://localhost:3000/booking-success");
-    } else res.render("success", { code: vnp_Params["vnp_ResponseCode"] });
+      let status = "ok";
+      res.redirect(`http://localhost:3000/booking-success/${status}`);
+    } else res.redirect(`http://localhost:3000/error-payment`);
   } else {
     res.render("success", { code: "97" });
   }
